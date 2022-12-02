@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id();
             $table->string("nome");
-            $table->date("dataNasc")->nullable();;
+            $table->date("dataNasc")->nullable();
             $table->string("telefone")->nullable();
             $table->string("email")->nullable();
 
@@ -37,7 +37,7 @@ return new class extends Migration
                             ->nullable();
 
 
-            $table->timestamps();
+            //$table->timestamps();
         });
     }
 
