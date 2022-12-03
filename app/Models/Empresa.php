@@ -17,5 +17,5 @@ class Empresa extends Model
 
     public $incrementing = true;
 
-    public $timestamp = false;
+    public $timestamps = false;
 }

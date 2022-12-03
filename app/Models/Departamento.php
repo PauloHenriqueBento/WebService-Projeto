@@ -17,5 +17,5 @@ class Departamento extends Model
 
     public $incrementing = true;
 
-    public $timestamp = false;
+    public $timestamps = false;
 }
