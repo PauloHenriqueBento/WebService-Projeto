@@ -65,7 +65,7 @@
                         "description": "Id da Empresa",
                         "required": true,
                         "schema": {
-                            "type": "Integer"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -138,6 +138,140 @@
                     }
                 }
             }
+        },
+        "/api/funcionarios": {
+            "get": {
+                "tags": [
+                    "Funcionarios"
+                ],
+                "summary": "Retorna a lista de Funcionarios",
+                "description": "Retorna o JSON da lista de Funcionarios",
+                "operationId": "getFuncionarioList",
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Funcionarios"
+                ],
+                "summary": "Cadastra um novo funcionario",
+                "description": "Retorna o JSON com os dados do novo funcionario",
+                "operationId": "storeFuncionarios",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreFuncionarioRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Funcionario"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/funcionarios/{id}": {
+            "get": {
+                "tags": [
+                    "Funcionarios"
+                ],
+                "summary": "Retorna a informação de um Funcionario",
+                "description": "Retorna o JSON do funcionario requisitado",
+                "operationId": "getFuncionarioById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Funcionario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Funcionarios"
+                ],
+                "summary": "Apaga um Funcionario existente",
+                "description": "Apaga um Funcionario existente e não há retorno de dados",
+                "operationId": "deleteFuncionario",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Funcionario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Funcionarios"
+                ],
+                "summary": "Atualiza um Funcionario existente",
+                "description": "Retorna o JSON do Funcionario atualizado",
+                "operationId": "updateFuncionario",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Funcionario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreFuncionarioRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -171,6 +305,59 @@
                     "name": "Empresa"
                 }
             },
+            "Funcionario": {
+                "title": "Funcionario",
+                "description": "Modelo do Funcionario",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "nome": {
+                        "title": "nome do Funcionario",
+                        "description": "Nome do Funcionario",
+                        "type": "string",
+                        "example": "Matheus"
+                    },
+                    "dataNasc": {
+                        "title": "Data de nascimento do Funcionario",
+                        "description": "Data de nascimento do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    },
+                    "telefone": {
+                        "title": "Telefone do Funcionario",
+                        "description": "Telefone do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    },
+                    "email": {
+                        "title": "Email do Funcionario",
+                        "description": "Email do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    },
+                    "departamento_id": {
+                        "title": "Id do departamento do Funcionario",
+                        "description": "Id do departamento do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    },
+                    "empresa_id": {
+                        "title": "Id da empresa do Funcionario",
+                        "description": "Id da empresa do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Funcionario"
+                }
+            },
             "StoreEmpresaRequest": {
                 "title": "Requisicao para nova Empresa",
                 "description": "Requisição enviada via Body para uma nova Empresa",
@@ -182,13 +369,64 @@
                         "title": "nome da empresa",
                         "description": "Nome da nova empresa",
                         "type": "string",
-                        "example": "Google"
+                        "example": "Nome"
                     },
                     "CNPJ": {
                         "title": "CNPJ da empresa",
                         "description": "CNPJ da nova empresa",
                         "type": "integer",
                         "example": "12345678901234"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreFuncionarioRequest": {
+                "title": "Requisicao para novo Funcionario",
+                "description": "Requisição enviada via Body para um novo Funcionario",
+                "required": [
+                    "nome",
+                    "dataNasc",
+                    "telefone",
+                    "email",
+                    "departamento_id",
+                    "empresa_id"
+                ],
+                "properties": {
+                    "nome": {
+                        "title": "nome do Funcionario",
+                        "description": "Nome do Funcionario",
+                        "type": "string",
+                        "example": "Matheus"
+                    },
+                    "dataNasc": {
+                        "title": "Data de nascimento do Funcionario",
+                        "description": "Data de nascimento do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    },
+                    "telefone": {
+                        "title": "Telefone do Funcionario",
+                        "description": "Telefone do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    },
+                    "email": {
+                        "title": "Email do Funcionario",
+                        "description": "Email do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    },
+                    "departamento_id": {
+                        "title": "Id do departamento do Funcionario",
+                        "description": "Id do departamento do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
+                    },
+                    "empresa_id": {
+                        "title": "Id da empresa do Funcionario",
+                        "description": "Id da empresa do Funcionario",
+                        "type": "string",
+                        "example": "Funcionario"
                     }
                 },
                 "type": "object"
