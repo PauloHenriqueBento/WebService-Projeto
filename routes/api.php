@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\EmpresaController;
 
+use App\Http\Controllers\Api\FuncionarioController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route:: apiResource('empresas', EmpresaController::class);
 Route:: apiResource('departamentos', \App\Http\Controllers\Api\DepartamentoController::class);
+
+Route::apiResource('funcionarios', FuncionarioController::class);
