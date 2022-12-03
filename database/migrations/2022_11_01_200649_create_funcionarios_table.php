@@ -35,9 +35,6 @@ return new class extends Migration
                             ->onUpdate('cascade')
                             ->onDelete("cascade")
                             ->nullable();
-
-
-            $table->timestamps();
         });
     }
 
