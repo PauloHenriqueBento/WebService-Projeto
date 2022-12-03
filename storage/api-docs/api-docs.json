@@ -1,0 +1,198 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Web Service API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/empresas": {
+            "get": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Retorna a lista de Empresas",
+                "description": "Retorna o JSON da lista de Empresas",
+                "operationId": "getEmpresaList",
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Cria uma nova empresa",
+                "description": "Retorna o JSON com os dados da nova Empresa",
+                "operationId": "storeEmpresa",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreEmpresaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Empresa"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/empresas/{id}": {
+            "get": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Retorna a informação de uma empresa",
+                "description": "Retorna o JSON da empresa requisitada",
+                "operationId": "getEmpresaById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da Empresa",
+                        "required": true,
+                        "schema": {
+                            "type": "Integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Apaga uma empresa existente",
+                "description": "Apaga uma Empresa existente e não há retorno de dados",
+                "operationId": "deleteEmpresa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da Empresa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Atualiza uma Empresa existente",
+                "description": "Retorna o JSON da Empresa atualizada",
+                "operationId": "updateEmpresa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da Empresa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreEmpresaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Empresa": {
+                "title": "Empresa",
+                "description": "Modelo da Empresa",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "nome": {
+                        "title": "nome da empresa",
+                        "description": "Nome da Empresa",
+                        "type": "string",
+                        "example": "Empresa"
+                    },
+                    "CNPJ": {
+                        "title": "CNPJ da empresa",
+                        "description": "CNPJ da Empresa",
+                        "type": "integer",
+                        "example": "Empresa"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Empresa"
+                }
+            },
+            "StoreEmpresaRequest": {
+                "title": "Requisicao para nova Empresa",
+                "description": "Requisição enviada via Body para uma nova Empresa",
+                "required": [
+                    "nome"
+                ],
+                "properties": {
+                    "nome": {
+                        "title": "nome da empresa",
+                        "description": "Nome da nova empresa",
+                        "type": "string",
+                        "example": "Google"
+                    },
+                    "CNPJ": {
+                        "title": "CNPJ da empresa",
+                        "description": "CNPJ da nova empresa",
+                        "type": "integer",
+                        "example": "12345678901234"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
