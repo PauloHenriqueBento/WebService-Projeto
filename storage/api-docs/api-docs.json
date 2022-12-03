@@ -5,6 +5,142 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/departamentos": {
+            "get": {
+                "tags": [
+                    "Departamentos"
+                ],
+                "summary": "Retorna a lista de departamentos",
+                "description": "Retorna o JSON da lista de Departamentos",
+                "operationId": "getDepartamentoList",
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            }
+        },
+        "/api/departamento": {
+            "post": {
+                "tags": [
+                    "Departamentos"
+                ],
+                "summary": "Cria uma nova departamento",
+                "description": "Retorna o JSON com os dados da nova Departamento",
+                "operationId": "storeDepartamento",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreDepartamentoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Departamento"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/departamentos/{id}": {
+            "get": {
+                "tags": [
+                    "Departamentos"
+                ],
+                "summary": "Retorna a informação de um departamento",
+                "description": "Retorna o JSON do departamento requisitada",
+                "operationId": "getDepartamentoById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da Departamento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Departamentos"
+                ],
+                "summary": "Apaga uma departamento existente",
+                "description": "Apaga uma Departamento existente e não há retorno de dados",
+                "operationId": "deleteDepartamento",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da Empresa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Departamentos"
+                ],
+                "summary": "Atualiza um Departamento existente",
+                "description": "Retorna o JSON do Departamento atualizada",
+                "operationId": "updateDepartamentos",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da Departamento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreDepartamentoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operação executada com sucesso"
+                    }
+                }
+            }
+        },
         "/api/empresas": {
             "get": {
                 "tags": [
@@ -65,7 +201,7 @@
                         "description": "Id da Empresa",
                         "required": true,
                         "schema": {
-                            "type": "Integer"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -142,6 +278,35 @@
     },
     "components": {
         "schemas": {
+            "Departamento": {
+                "title": "Departamento",
+                "description": "Modelo de Departamento",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "nome": {
+                        "title": "nome da departamento",
+                        "description": "Nome do departamento",
+                        "type": "string",
+                        "example": "Departamento"
+                    },
+                    "descricao": {
+                        "title": "Descrição do departamento",
+                        "description": "descrição do departamento",
+                        "type": "string",
+                        "example": "Departamento"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Departamento"
+                }
+            },
             "Empresa": {
                 "title": "Empresa",
                 "description": "Modelo da Empresa",
@@ -171,6 +336,28 @@
                     "name": "Empresa"
                 }
             },
+            "StoreDepartamentoRequest": {
+                "title": "Requisicao para novo Departamento",
+                "description": "Requisição enviada via Body para uma novo departamento",
+                "required": [
+                    "nome"
+                ],
+                "properties": {
+                    "nome": {
+                        "title": "nome d departamento",
+                        "description": "Nome do novo Departamento",
+                        "type": "string",
+                        "example": "Nome"
+                    },
+                    "descricao": {
+                        "title": "Descrição do departamento",
+                        "description": "descrição do novo departamento",
+                        "type": "string",
+                        "example": "lorem ipsum"
+                    }
+                },
+                "type": "object"
+            },
             "StoreEmpresaRequest": {
                 "title": "Requisicao para nova Empresa",
                 "description": "Requisição enviada via Body para uma nova Empresa",
@@ -182,7 +369,7 @@
                         "title": "nome da empresa",
                         "description": "Nome da nova empresa",
                         "type": "string",
-                        "example": "Google"
+                        "example": "Nome"
                     },
                     "CNPJ": {
                         "title": "CNPJ da empresa",

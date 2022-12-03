@@ -136,7 +136,7 @@ class DepartamentoController extends Controller
      * @OA\Post(
      *      path="/api/departamento",
      *      operationId="storeDepartamento",
-     *      tags={"Departamento"},
+     *      tags={"Departamentos"},
      *      summary="Cria uma nova departamento",
      *      description="Retorna o JSON com os dados da nova Departamento",
      *      @OA\RequestBody(
@@ -167,10 +167,26 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Departamento  $departamento
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/api/departamentos/{id}",
+     *      operationId="getDepartamentoById",
+     *      tags={"Departamentos"},
+     *      summary="Retorna a informação de um departamento",
+     *      description="Retorna o JSON do departamento requisitada",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Id da Departamento",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso"
+     *      )
+     * )
      */
     public function show($departamento_id)
     {
@@ -203,11 +219,30 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Departamento  $empresa
-     * @return \Illuminate\Http\Response
+     * @OA\Patch(
+     *      path="/api/departamentos/{id}",
+     *      operationId="updateDepartamentos",
+     *      tags={"Departamentos"},
+     *      summary="Atualiza um Departamento existente",
+     *      description="Retorna o JSON do Departamento atualizada",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Id da Departamento",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreDepartamentoRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso"
+     *      )
+     * )
      */
     public function update(StoreDepartamentoRequest $request, Departamento $departamento)
     {
@@ -224,10 +259,27 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Departamento  $departamento
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *      path="/api/departamentos/{id}",
+     *      operationId="deleteDepartamento",
+     *      tags={"Departamentos"},
+     *      summary="Apaga uma departamento existente",
+     *      description="Apaga uma Departamento existente e não há retorno de dados",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Id da Empresa",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso",
+     *          @OA\JsonContent()
+     *      )
+     * )
      */
     public function destroy(Departamento $departamento)
     {
