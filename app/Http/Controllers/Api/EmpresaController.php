@@ -11,10 +11,19 @@ use Illuminate\Support\Str;
 
 class EmpresaController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/api/empresas",
+     *      operationId="getEmpresaList",
+     *      tags={"Empresas"},
+     *      summary="Retorna a lista de Empresas",
+     *      description="Retorna o JSON da lista de Empresas",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso"
+     *      )
+     * )
      */
     public function index(Request $request)
     {
@@ -214,10 +223,22 @@ class EmpresaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *      path="/api/empresas",
+     *      operationId="storeEmpresa",
+     *      tags={"Empresas"},
+     *      summary="Cria uma nova empresa",
+     *      description="Retorna o JSON com os dados da nova Empresa",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreEmpresaRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso",
+     *          @OA\JsonContent(ref="#/components/schemas/Empresa")
+     *      )
+     * )
      */
     public function store(StoreEmpresaRequest $request)
     {
@@ -236,14 +257,44 @@ class EmpresaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Empresa  $empresa
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/api/empresas/{id}",
+     *      operationId="getEmpresaById",
+     *      tags={"Empresas"},
+     *      summary="Retorna a informação de uma empresa",
+     *      description="Retorna o JSON da empresa requisitada",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Id da Empresa",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso"
+     *      )
+     * )
      */
-    public function show(Empresa $empresa)
+    public function show($empresa_id)
     {
-        //
+        $empresa = Empresa::find($empresa_id);
+
+        if($empresa){
+            return response()->json([
+                'status' => 200,
+                'mensagem' => "Empresa retornada",
+                'empresa' => $empresa
+            ],200);
+        }else{
+            return response()->json([
+                'status' => 406,
+                'mensagem' => "Empresa não encontrada",
+                'empresa' => []
+            ],406);
+        }
     }
 
     /**
@@ -258,11 +309,30 @@ class EmpresaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Empresa  $empresa
-     * @return \Illuminate\Http\Response
+     * @OA\Patch(
+     *      path="/api/empresas/{id}",
+     *      operationId="updateEmpresa",
+     *      tags={"Empresas"},
+     *      summary="Atualiza uma Empresa existente",
+     *      description="Retorna o JSON da Empresa atualizada",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Id da Empresa",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreEmpresaRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso"
+     *      )
+     * )
      */
     public function update(StoreEmpresaRequest $request, Empresa $empresa)
     {
@@ -279,10 +349,27 @@ class EmpresaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Empresa  $empresa
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *      path="/api/empresas/{id}",
+     *      operationId="deleteEmpresa",
+     *      tags={"Empresas"},
+     *      summary="Apaga uma empresa existente",
+     *      description="Apaga uma Empresa existente e não há retorno de dados",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Id da Empresa",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso",
+     *          @OA\JsonContent()
+     *      )
+     * )
      */
     public function destroy(Empresa $empresa)
     {
