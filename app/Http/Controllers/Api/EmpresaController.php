@@ -290,10 +290,10 @@ class EmpresaController extends Controller
             ],200);
         }else{
             return response()->json([
-                'status' => 406,
+                'status' => 404,
                 'mensagem' => "Empresa não encontrada",
                 'empresa' => []
-            ],406);
+            ],404);
         }
     }
 

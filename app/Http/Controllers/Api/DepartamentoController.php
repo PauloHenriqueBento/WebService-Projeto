@@ -6,24 +6,120 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDepartamentoRequest;
 use App\Models\Departamento;
 use App\Http\Resources\DepartamentoResource;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class DepartamentoController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/api/departamentos",
+     *      operationId="getDepartamentoList",
+     *      tags={"Departamentos"},
+     *      summary="Retorna a lista de departamentos",
+     *      description="Retorna o JSON da lista de Departamentos",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso"
+     *      )
+     * )
      */
-    public function index()
+    public function index(Request $request)
     {
-        $empresas = Departamento::all();
+//        $empresas = Departamento::all();
+        $query = Departamento::query();
+        $mensagem = "Lista de Departamentos retornada";
+        $codigoRetorno = 0;
 
-        return response()->json([
-            'status' => 200,
-            'mensagem' => 'Lista departamento retornada',
-            'empresas' => DepartamentoResource::collection($empresas)
-        ],200);
+        /**
+         * Realizar o processo de Filtro
+         */
+        // Obtem o paramentro do filtro
+        $filterParameter = $request->input("filtro");
+
+        if($filterParameter == null){
+            //Retorna todos os produtos e Default
+            $mensagem = "Lista de empresa retornada completa";
+            $codigoRetorno = 200;
+        }else{
+            //Obtem o nome do filtro e o criterio
+            [$filterCriteria, $filterValue] = explode(":", $filterParameter);
+
+            //Se o filtro está adequado
+            if($filterCriteria == "nome"){
+                //faz o Query onde o nome for igual ao passado
+                $empresas = $query->where("nome", "=", $filterValue);
+                $mensagem = "Lista departamento retornada - Filtrada";
+                $codigoRetorno = 200;
+            }else{
+                //Usuario chamou um filtro que não existe, então não há nada a retornar
+                $departamento = [];
+                $mensagem = "filtro não aceito";
+                $codigoRetorno = 406;
+            }
+        }
+
+        if($codigoRetorno == 200){
+            /**
+             * Realizar o processo de ordenação
+             */
+            //Se há um input para ordenação
+            if($request->input('ordenacao', '')){
+                $sorts = explode(',', $request->input('ordenacao', ''));
+
+                foreach($sorts as $sortColumn){
+                    $sortDirection = Str::startsWith($sortColumn, '-') ? 'desc' : 'asc';
+                    $sortColumn = ltrim($sortColumn, '-');
+
+                    //Transforma os nomes dos parametros em nomes dos campos do modelo
+                    switch ($sortColumn){
+                        case("nome");
+                        $query->orderBy("nome", $sortDirection);
+                        break;
+                    }
+                }
+            }
+
+            /**
+             * Realiza o processo de paginação
+             */
+            $input = $request->input('pagina');
+            if($input){
+                $page = $input;
+                $perPage = 2; //Registro por pagina
+                $query->offset(($page-1) * $perPage)->limit($perPage);
+                $departamento = $query->get();
+
+                $recordsTotal = Departamento::count();
+                $numberOfPages = ceil($recordsTotal / $perPage);
+
+                $mensagem = $mensagem . "+ordenada";
+            }
+
+            //Se o processamento foi OK, retorna com base no criterio
+            if($codigoRetorno == 200) {
+                $departamento = $query->get();
+                $response = response()->json([
+                    'status' => 200,
+                    'mensagem' => $mensagem,
+                    'departamentos' => DepartamentoResource::collection($departamento)
+                ], 200);
+            } else {
+                //Retorna o erro que ocorreu
+                $response = response()->json([
+                    'status' => 400,
+                    'mensagem' => $mensagem,
+                    'departamento' => $departamento
+                ], 400);
+            }
+            return $response;
+        }
+
+//        return response()->json([
+//            'status' => 200,
+//            'mensagem' => 'Lista departamento retornada',
+//            'empresas' => DepartamentoResource::collection($empresas)
+//        ],200);
     }
 
     /**
@@ -37,10 +133,22 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *      path="/api/departamento",
+     *      operationId="storeDepartamento",
+     *      tags={"Departamento"},
+     *      summary="Cria uma nova departamento",
+     *      description="Retorna o JSON com os dados da nova Departamento",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreDepartamentoRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação executada com sucesso",
+     *          @OA\JsonContent(ref="#/components/schemas/Departamento")
+     *      )
+     * )
      */
     public function store(StoreDepartamentoRequest $request)
     {
@@ -64,17 +172,23 @@ class DepartamentoController extends Controller
      * @param  \App\Models\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function show(Departamento $departamento)
+    public function show($departamento_id)
     {
-        //
-        $departamento = Departamento::findOrFail($departamento->id);
+        $departamento = Departamento::find($departamento_id);
 
-        return response() -> json([
-            'status' => 200,
-            'mensagem' => "Departamento retornado",
-            'departamento' => new DepartamentoResource($departamento)
-        ]);
-
+        if($departamento){
+            return response() -> json([
+                'status' => 200,
+                'mensagem' => "Departamento retornado",
+                'departamento' => new DepartamentoResource($departamento)
+            ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'mensagem' => "Departamento não encontrada",
+                'empresa' => []
+            ],404);
+        }
     }
 
     /**
