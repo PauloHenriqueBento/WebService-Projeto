@@ -122,7 +122,7 @@ class EmpresaController extends Controller
 
         //UNINDO ORDENAÇÃO, PAGINAÇÃO E FILTRO
         $query = Empresa::query();
-        $mensagem = "Lista de empresas retornada";
+        $mensagem = __("empresa.listreturn");
         $codigoRetorno = 0;
 
         /*
@@ -134,7 +134,7 @@ class EmpresaController extends Controller
         //Se não há nenhum parametro
         if($filterParameter == null){
             //Retorna todos os produtos e Default
-            $mensagem = "Lista de empresas retornada completa";
+            $mensagem = __("empresa.listreturn");
             $codigoRetorno = 200;
         }else{
             //Obtem o nome do filtro e o criterio
@@ -251,7 +251,7 @@ class EmpresaController extends Controller
 
         return response()->json([
             'status' => 200,
-            'mensagem' => 'Empresa criada',
+            'mensagem' => __("empresa.created"),
             'empresa' => new EmpresaResource($empresa)
         ],200);
     }
@@ -285,7 +285,7 @@ class EmpresaController extends Controller
         if($empresa){
             return response()->json([
                 'status' => 200,
-                'mensagem' => "Empresa retornada",
+                'mensagem' => __("empresa.returned"),
                 'empresa' => $empresa
             ],200);
         }else{
@@ -343,7 +343,7 @@ class EmpresaController extends Controller
 
         return response()->json([
             'status' => 200,
-            'mensagem' => 'Empresa atualizada',
+            'mensagem' => __("empresa.updated"),
             'empresa' => new EmpresaResource($empresa)
         ],200);
     }
@@ -377,7 +377,7 @@ class EmpresaController extends Controller
 
         return response()->json([
             'status' => 200,
-            'mensagem' => 'Empresa apagada'
+            'mensagem' => __("empresa.deleted"),
         ],200);
     }
 }
