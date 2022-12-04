@@ -5,7 +5,7 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/empresas": {
+        "/api/v1/empresas": {
             "get": {
                 "tags": [
                     "Empresas"
@@ -50,7 +50,7 @@
                 }
             }
         },
-        "/api/empresas/{id}": {
+        "/api/v1/empresas/{id}": {
             "get": {
                 "tags": [
                     "Empresas"
@@ -139,7 +139,7 @@
                 }
             }
         },
-        "/api/funcionarios": {
+        "/api/v1/funcionarios": {
             "get": {
                 "tags": [
                     "Funcionarios"
@@ -184,7 +184,7 @@
                 }
             }
         },
-        "/api/funcionarios/{id}": {
+        "/api/v1/funcionarios/{id}": {
             "get": {
                 "tags": [
                     "Funcionarios"

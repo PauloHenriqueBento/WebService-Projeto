@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-use App\Http\Requests\StoreFuncionarioRequest;
-use App\Http\Resources\FuncionarioResource;
+use App\Http\Requests\v1\StoreFuncionarioRequest;
+use App\Http\Resources\v1\FuncionarioResource;
 
 class FuncionarioController extends Controller
 {
     
     /**
      * @OA\Get(
-     *      path="/api/funcionarios",
+     *      path="/api/v1/funcionarios",
      *      operationId="getFuncionarioList",
      *      tags={"Funcionarios"},
      *      summary="Retorna a lista de Funcionarios",
@@ -133,7 +133,7 @@ class FuncionarioController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/funcionarios",
+     *      path="/api/v1/funcionarios",
      *      operationId="storeFuncionarios",
      *      tags={"Funcionarios"},
      *      summary="Cadastra um novo funcionario",
@@ -172,7 +172,7 @@ class FuncionarioController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/funcionarios/{id}",
+     *      path="/api/v1/funcionarios/{id}",
      *      operationId="getFuncionarioById",
      *      tags={"Funcionarios"},
      *      summary="Retorna a informação de um Funcionario",
@@ -225,7 +225,7 @@ class FuncionarioController extends Controller
 
     /**
      * @OA\Patch(
-     *      path="/api/funcionarios/{id}",
+     *      path="/api/v1/funcionarios/{id}",
      *      operationId="updateFuncionario",
      *      tags={"Funcionarios"},
      *      summary="Atualiza um Funcionario existente",
@@ -270,7 +270,7 @@ class FuncionarioController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/api/funcionarios/{id}",
+     *      path="/api/v1/funcionarios/{id}",
      *      operationId="deleteFuncionario",
      *      tags={"Funcionarios"},
      *      summary="Apaga um Funcionario existente",
