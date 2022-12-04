@@ -21,7 +21,7 @@ class FuncionarioResource extends JsonResource
             'dataNasc' => $this->dataNasc,
             'telefone' => $this->telefone,
             'email' => $this->email,
-            'departamento_id' => $this->Departamento,
+            'departamento' => $this->Departamento,
             'empresa' => $this->Empresa
         ];
     }
