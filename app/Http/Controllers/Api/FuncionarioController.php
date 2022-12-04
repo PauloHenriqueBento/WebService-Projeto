@@ -135,7 +135,7 @@ class FuncionarioController extends Controller
      * @OA\Post(
      *      path="/api/funcionarios",
      *      operationId="storeFuncionarios",
-     *      tags={"Empresas"},
+     *      tags={"Funcionarios"},
      *      summary="Cadastra um novo funcionario",
      *      description="Retorna o JSON com os dados do novo funcionario",
      *      @OA\RequestBody(
