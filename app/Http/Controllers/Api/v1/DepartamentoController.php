@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreDepartamentoRequest;
+use App\Http\Requests\v1\StoreDepartamentoRequest;
 use App\Models\Departamento;
-use App\Http\Resources\DepartamentoResource;
-use Illuminate\Support\Str;
+use App\Http\Resources\v1\DepartamentoResource;
 use Illuminate\Http\Request;
 
 class DepartamentoController extends Controller

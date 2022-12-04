@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreEmpresaRequest;
+use App\Http\Requests\v1\StoreEmpresaRequest;
 use App\Models\Empresa;
-use App\Http\Resources\EmpresaResource;
+use App\Http\Resources\v1\EmpresaResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -14,7 +14,7 @@ class EmpresaController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/empresas",
+     *      path="/api/v1/empresas",
      *      operationId="getEmpresaList",
      *      tags={"Empresas"},
      *      summary="Retorna a lista de Empresas",
@@ -224,7 +224,7 @@ class EmpresaController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/empresas",
+     *      path="/api/v1/empresas",
      *      operationId="storeEmpresa",
      *      tags={"Empresas"},
      *      summary="Cria uma nova empresa",
@@ -258,7 +258,7 @@ class EmpresaController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/empresas/{id}",
+     *      path="/api/v1/empresas/{id}",
      *      operationId="getEmpresaById",
      *      tags={"Empresas"},
      *      summary="Retorna a informação de uma empresa",
@@ -310,7 +310,7 @@ class EmpresaController extends Controller
 
     /**
      * @OA\Patch(
-     *      path="/api/empresas/{id}",
+     *      path="/api/v1/empresas/{id}",
      *      operationId="updateEmpresa",
      *      tags={"Empresas"},
      *      summary="Atualiza uma Empresa existente",
@@ -350,7 +350,7 @@ class EmpresaController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/api/empresas/{id}",
+     *      path="/api/v1/empresas/{id}",
      *      operationId="deleteEmpresa",
      *      tags={"Empresas"},
      *      summary="Apaga uma empresa existente",

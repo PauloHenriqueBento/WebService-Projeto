@@ -18,4 +18,13 @@ class Funcionario extends Model
     public $incrementing = true;
 
     public $timestamps = false;
+
+    public function Empresa(){
+        return $this->belongsTo(Empresa::class,'empresa_id');
+    }
+    
+    public function Departamento(){
+        return $this->belongsTo(Departamento::class,'departamento_id');
+    }
+
 }
