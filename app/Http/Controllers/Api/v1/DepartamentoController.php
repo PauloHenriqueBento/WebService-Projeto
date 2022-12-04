@@ -12,7 +12,7 @@ class DepartamentoController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/api/departamentos",
+     *      path="/api/v1/departamentos",
      *      operationId="getDepartamentoList",
      *      tags={"Departamentos"},
      *      summary="Retorna a lista de departamentos",
@@ -133,7 +133,7 @@ class DepartamentoController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/departamento",
+     *      path="/api/v1/departamento",
      *      operationId="storeDepartamento",
      *      tags={"Departamentos"},
      *      summary="Cria uma nova departamento",
@@ -167,7 +167,7 @@ class DepartamentoController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/departamentos/{id}",
+     *      path="/api/v1/departamentos/{id}",
      *      operationId="getDepartamentoById",
      *      tags={"Departamentos"},
      *      summary="Retorna a informação de um departamento",
@@ -219,7 +219,7 @@ class DepartamentoController extends Controller
 
     /**
      * @OA\Patch(
-     *      path="/api/departamentos/{id}",
+     *      path="/api/v1/departamentos/{id}",
      *      operationId="updateDepartamentos",
      *      tags={"Departamentos"},
      *      summary="Atualiza um Departamento existente",
@@ -259,7 +259,7 @@ class DepartamentoController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/api/departamentos/{id}",
+     *      path="/api/v1/departamentos/{id}",
      *      operationId="deleteDepartamento",
      *      tags={"Departamentos"},
      *      summary="Apaga uma departamento existente",

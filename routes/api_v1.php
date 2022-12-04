@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\v1\EmpresaController;
 use App\Http\Controllers\Api\v1\FuncionarioController;
+use App\Http\Controllers\Api\PassportAuthController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,11 +18,11 @@ use App\Http\Controllers\Api\v1\FuncionarioController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('register', [PassportAuthController::class, 'register']);
+Route::post('login', [PassportAuthController::class, 'login']);
+Route::post('logout', [PassportAuthController::class, 'logout'])->middleware('auth:api');
+Route::get('user', [PassportAuthController::class, 'userInfo'])->middleware('auth:api');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route:: apiResource('empresas', EmpresaController::class);
-Route::apiResource('funcionarios', FuncionarioController::class);
-Route:: apiResource('departamentos', \App\Http\Controllers\Api\v1\DepartamentoController::class);
+Route:: apiResource('empresas', EmpresaController::class)->middleware('auth:api');
+Route::apiResource('funcionarios', FuncionarioController::class)->middleware('auth:api');
+Route:: apiResource('departamentos', \App\Http\Controllers\Api\v1\DepartamentoController::class)->middleware('auth:api');
