@@ -12,7 +12,7 @@ use App\Http\Resources\FuncionarioResource;
 
 class FuncionarioController extends Controller
 {
-    
+
     /**
      * @OA\Get(
      *      path="/api/funcionarios",
@@ -118,7 +118,7 @@ class FuncionarioController extends Controller
            return $response;
        }
    }
-    
+
 
     /**
      * Show the form for creating a new resource.
