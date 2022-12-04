@@ -14,7 +14,6 @@ class FuncionarioResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
         return [
 
             'id' => $this->id,
@@ -22,8 +21,8 @@ class FuncionarioResource extends JsonResource
             'dataNasc' => $this->dataNasc,
             'telefone' => $this->telefone,
             'email' => $this->email,
-            'departamento_id' => $this->departamento_id,
-            'empresa_id' => $this->empresa_id
+            'departamento_id' => $this->Departamento,
+            'empresa' => $this->Empresa
         ];
     }
 }

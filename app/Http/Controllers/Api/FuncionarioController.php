@@ -200,7 +200,7 @@ class FuncionarioController extends Controller
             return response()->json([
                 'status' => 200,
                 'mensagem' => "Funcionario retornada",
-                'funcionario' => $funcionario
+                'funcionario' => new FuncionarioResource($funcionario)
             ],200);
         }else{
             return response()->json([
