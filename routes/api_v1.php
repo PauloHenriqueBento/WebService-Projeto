@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\v1\EmpresaController;
 use App\Http\Controllers\Api\v1\FuncionarioController;
+use App\Http\Controllers\Api\v1\DepartamentoController;
 use App\Http\Controllers\Api\PassportAuthController;
 
 
@@ -26,6 +27,7 @@ Route::middleware("localization")->group(function(){
 
     Route:: apiResource('empresas', EmpresaController::class)->middleware('auth:api');
     Route::apiResource('funcionarios', FuncionarioController::class)->middleware('auth:api');
-    Route:: apiResource('departamentos', \App\Http\Controllers\Api\v1\DepartamentoController::class)->middleware('auth:api');
+    //Route:: apiResource('departamentos', \App\Http\Controllers\Api\v1\DepartamentoController::class)->middleware('auth:api');
+    Route:: apiResource('departamentos', DepartamentoController::class)->middleware('auth:api');
 });
 

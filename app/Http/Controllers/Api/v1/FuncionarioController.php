@@ -30,7 +30,7 @@ class FuncionarioController extends Controller
     {
        //UNINDO ORDENAÇÃO, PAGINAÇÃO E FILTRO
        $query = Funcionario::query();
-       $mensagem = "Lista de Funcionarios retornada";
+       $mensagem = __("funcionario.listreturn");
        $codigoRetorno = 0;
 
        /*
@@ -42,7 +42,7 @@ class FuncionarioController extends Controller
        //Se não há nenhum parametro
        if($filterParameter == null){
            //Retorna todos os produtos e Default
-           $mensagem = "Lista de Funcionarios retornada completa";
+           $mensagem = __("funcionario.listreturn");
            $codigoRetorno = 200;
        }else{
            //Obtem o nome do filtro e o criterio
@@ -164,7 +164,7 @@ class FuncionarioController extends Controller
 
         return response()-> json([
             'status' => 200,
-            'msg' => 'Funcionario cadastrado com sucesso',
+            'msg' => __("funcionario.created"),
             'funcionario' => new FuncionarioResource($funcionario)
         ],200);
     }
@@ -199,7 +199,7 @@ class FuncionarioController extends Controller
         if($funcionario){
             return response()->json([
                 'status' => 200,
-                'mensagem' => "Funcionario retornada",
+                'mensagem' => __("funcionario.returned"),
                 'funcionario' => new FuncionarioResource($funcionario)
             ],200);
         }else{
@@ -263,7 +263,7 @@ class FuncionarioController extends Controller
 
         return response()-> json([
             'status' => 200,
-            'msg' => 'Funcionario Atualizado com sucesso',
+            'msg' => __("funcionario.updated"),
             'funcionario' => new FuncionarioResource($funcionario)
         ],200);
     }
@@ -297,7 +297,7 @@ class FuncionarioController extends Controller
 
         return response() -> json([
             'status' => 200,
-            'msg' => 'Funcionario apagado com sucesso'
+            'msg' => __("funcionario.deleted")
         ],200);
     }
 }

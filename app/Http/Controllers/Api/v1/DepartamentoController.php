@@ -27,7 +27,7 @@ class DepartamentoController extends Controller
     {
 //        $empresas = Departamento::all();
         $query = Departamento::query();
-        $mensagem = "Lista de Departamentos retornada";
+        $mensagem = __("departamento.listreturn");
         $codigoRetorno = 0;
 
         /**
@@ -38,7 +38,7 @@ class DepartamentoController extends Controller
 
         if($filterParameter == null){
             //Retorna todos os produtos e Default
-            $mensagem = "Lista de empresa retornada completa";
+            $mensagem = __("departamento.listreturn");
             $codigoRetorno = 200;
         }else{
             //Obtem o nome do filtro e o criterio
@@ -160,7 +160,7 @@ class DepartamentoController extends Controller
 
         return response()->json([
             'status' => 200,
-            'mensagem' => 'Departamento criado',
+            'mensagem' => __("departamento.created"),
             'empresa' => new DepartamentoResource($empresa)
         ],200);
     }
@@ -194,7 +194,7 @@ class DepartamentoController extends Controller
         if($departamento){
             return response() -> json([
                 'status' => 200,
-                'mensagem' => "Departamento retornado",
+                'mensagem' => __("departamento.returned"),
                 'departamento' => new DepartamentoResource($departamento)
             ]);
         }else{
@@ -252,7 +252,7 @@ class DepartamentoController extends Controller
 
         return response()->json([
             'status' => 200,
-            'mensagem' => 'Departamento atualizada',
+            'mensagem' => __("departamento.updated"),
             'empresa' => new DepartamentoResource($departamento)
         ],200);
     }
@@ -286,7 +286,7 @@ class DepartamentoController extends Controller
 
         return response()->json([
             'status' => 200,
-            'mensagem' => 'Departamento apagada'
+            'mensagem' => __("departamento.deleted")
         ],200);
     }
 }
